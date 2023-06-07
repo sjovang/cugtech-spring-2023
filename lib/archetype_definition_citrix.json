@@ -1,0 +1,20 @@
+{
+    "citrix": {
+      "policy_assignments": [
+        "Audit-PeDnsZones",
+        "Deny-HybridNetworking",
+        "Deny-Public-Endpoints",
+        "Deny-Public-IP-On-NIC",
+        "Deploy-Private-DNS-Zones",
+        "Deny-Resource-Locations", 
+        "Deny-RSG-Locations"
+      ],
+      "policy_definitions": [],
+      "policy_set_definitions": [],
+      "role_definitions": [],
+      "archetype_config": {
+        "parameters": {},
+        "access_control": {}
+      }
+    }
+  }
