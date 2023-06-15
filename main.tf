@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 3.54.0"
+      version = "~> 3.61.0"
     }
   }
 }
@@ -15,7 +15,7 @@ data "azurerm_client_config" "core" {}
 
 module "azure_landing_zones" {
   source  = "Azure/caf-enterprise-scale/azurerm"
-  version = "4.0.2"
+  version = "~> 4.0.2"
 
   default_location  = var.default_location
   disable_telemetry = true
@@ -47,7 +47,7 @@ module "azure_landing_zones" {
   }
 
   subscription_id_overrides = {
-    sandboxes = ["fe51bf5c-fb43-4e5a-b8af-53889b9bf20f"]
+    sandboxes = var.sandbox_subscriptions
   }
 
   custom_landing_zones = {
@@ -76,6 +76,31 @@ module "azure_landing_zones" {
         access_control = {}
       }
     }
+    "${var.root_id}-analytics" = {
+        display_name               = "Analytics"
+        parent_management_group_id = "${var.root_id}-landing-zones"
+        subscription_ids           = []
+        archetype_config = {
+          archetype_id = "analytics"
+          parameters = {
+            Deny-Resource-Locations = {
+              listOfAllowedLocations = [
+                "norwayeast",
+                "norwaywest",
+                "westeurope"
+              ]
+            }
+            Deny-RSG-Locations = {
+              listOfAllowedLocations = [
+                "norwayeast",
+                "norwaywest",
+                "westeurope"
+              ]
+            }
+          }
+          access_control = {}
+        }
+      }
   }
 }
 
