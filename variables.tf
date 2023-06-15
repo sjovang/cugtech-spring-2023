@@ -12,3 +12,8 @@ variable "default_location" {
   type    = string
   default = "westeurope"
 }
+
+variable "sandbox_subscriptions" {
+  type    = list(string)
+  default = []
+}
